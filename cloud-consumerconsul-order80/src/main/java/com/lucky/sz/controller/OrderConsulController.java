@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Slf4j
 public class OrderConsulController implements Serializable {
 
-    private static final String INVOKE_URL = "http://consul-provider-payment";
+    private static final String INVOKE_URL = "http://CONSUL-PROVIDER-PAYMENT";
 
     @Resource
     private RestTemplate restTemplate;
