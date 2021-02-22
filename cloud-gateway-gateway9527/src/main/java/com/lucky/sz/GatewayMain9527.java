@@ -15,7 +15,7 @@ import java.io.Serializable;
  **/
 @SpringBootApplication
 @EnableEurekaClient
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class GatewayMain9527 implements Serializable {
 
     public static void main(String[] args) {
