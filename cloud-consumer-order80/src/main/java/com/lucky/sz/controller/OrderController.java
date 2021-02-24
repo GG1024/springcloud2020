@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -74,4 +73,9 @@ public class OrderController implements Serializable {
 
     }
 
+
+    @GetMapping(value = "/consumer/payment/zipkin")
+    public String paymentZipkin() {
+        return restTemplate.getForObject(PAYMENT_URL + "/payment/zipkin/", String.class);
+    }
 }
