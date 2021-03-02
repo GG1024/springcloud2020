@@ -1,0 +1,20 @@
+server:
+  port: 8020
+
+spring:
+  application:
+    name: ms-service
+  datasource:
+    # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动类
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.92.129:5810/ms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
+
+
