@@ -2,6 +2,7 @@ package com.lucky.sz.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.lucky.sz.service.OrderService;
+import com.lucky.sz.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,8 @@ public class StockController {
 
     @Resource
     private OrderService orderService;
-
+    @Resource
+    private UserService userService;
 
     //创建令牌桶实例
     private RateLimiter rateLimiter = RateLimiter.create(40);
@@ -83,4 +85,34 @@ public class StockController {
         return "获取md5信息为: " + md5;
     }
 
+
+    @GetMapping("killtokenmd5limit")
+    public String killtokenmd5limit(Integer id,Integer userId,String md5) {
+
+        System.out.println("秒杀商品的id = " + id);
+        //加入令牌桶的限流措施
+        if (!rateLimiter.tryAcquire(3, TimeUnit.SECONDS)) {
+            log.info("抛弃请求: 抢购失败,当前秒杀活动过于火爆,请重试");
+            return "抢购失败,当前秒杀活动过于火爆,请重试!";
+        }
+        try {
+            //加入单用户限制调用频率
+            int count = userService.saveUserCount(userId);
+            log.info("用户截至该次的访问次数为: [{}]", count);
+            boolean isBanned = userService.getUserCount(userId);
+            if (isBanned) {
+                log.info("购买失败,超过频率限制!");
+                return "购买失败，超过频率限制!";
+            }
+            //根据商品id创建订单,返回创建订单的id
+            int orderId = orderService.kill(id,userId,md5);
+            System.out.println("秒杀成功,orderId = " + orderId);
+            return String.valueOf(orderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+
+
+    }
 }
