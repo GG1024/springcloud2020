@@ -9,4 +9,7 @@ package com.lucky.sz.service;
 public interface OrderService {
     Integer createOrder(Integer id);
 
+    String getMd5(Integer id, Integer userid);
+
+    Integer kill(Integer id, Integer userId, String md5);
 }

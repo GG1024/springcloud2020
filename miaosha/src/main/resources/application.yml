@@ -12,6 +12,9 @@ spring:
     url: jdbc:mysql://192.168.92.129:5810/ms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 123456
+  redis:
+    port: 6379
+    host: 192.168.92.129
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
