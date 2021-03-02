@@ -15,6 +15,6 @@ public interface StockDAO {
     Stock checkStock(Integer id);
 
     //扣除库存
-    void updateSale(Stock stock);
+    int  updateSale(Stock stock);
 
 }

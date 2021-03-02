@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -31,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public  Integer createOrder(Integer id) {
+    public Integer createOrder(Integer id) {
         //校验库存
         Stock stock = checkStock(id);
         //扣库存
@@ -53,7 +52,10 @@ public class OrderServiceImpl implements OrderService {
 
     private void updateSale(Stock stock) {
 
-        stockDAO.updateSale(stock);
+        int updateRows = stockDAO.updateSale(stock);
+        if (updateRows == 0) {
+            throw new RuntimeException("抢购失败,请重试!");
+        }
 
     }
 

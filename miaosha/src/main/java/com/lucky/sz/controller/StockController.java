@@ -20,18 +20,26 @@ public class StockController {
     @Resource
     private OrderService orderService;
 
+
+    //创建令牌桶实例
+    //private RateLimiter rateLimiter = RateLimiter.create(40);
+
+
     //秒杀方法
     @GetMapping("sale")
-    public String sale(Integer id){
-        int orderId = 0;
-        try{
-            synchronized (this){
-                //根据商品id创建订单,返回创建订单的id
-                orderId =  orderService.createOrder(id);
-            }
-            System.out.println("orderId = " + orderId);
+    public String sale(Integer id) {
+        //System.out.println("秒杀商品的id = " + id);
+        //加入令牌桶的限流措施
+//        if (!rateLimiter.tryAcquire(3, TimeUnit.SECONDS)) {
+//            log.info("抛弃请求: 抢购失败,当前秒杀活动过于火爆,请重试");
+//            return "抢购失败,当前秒杀活动过于火爆,请重试!";
+//        }
+        try {
+            //根据商品id创建订单,返回创建订单的id
+            int orderId = orderService.createOrder(id);
+            System.out.println("秒杀成功,orderId = " + orderId);
             return String.valueOf(orderId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();
         }
