@@ -36,12 +36,12 @@ public class JmsProduce implements Serializable {
         Queue queue = session.createQueue(QUEUE_NAME);
         // 5.创建消息的生产者
         MessageProducer messageProducer = session.createProducer(queue);
-        messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+        messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
         for (int i = 1; i < 4 ; i++) {
             TextMessage textMessage = session.createTextMessage("---MessageListener---" + i);
             messageProducer.send(textMessage);
         }
-
+        System.out.println("  **** 消息发送到MQ完成 ****");
         messageProducer.close();
         session.close();
         connection.close();
