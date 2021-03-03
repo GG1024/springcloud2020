@@ -42,6 +42,8 @@
         <module>seata-account-service2003</module>
         <module>rabbitmq-study</module>
         <module>rabbitmqboot-study</module>
+        <module>miaosha</module>
+        <module>activemq-01</module>
     </modules>
 
 
