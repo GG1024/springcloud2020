@@ -36,7 +36,16 @@ public class JmsConsumer_Topic2 implements Serializable {
             if (message instanceof TextMessage){
                 try {
                     String text = ((TextMessage) message).getText();
-                    System.out.println(text);
+                    System.out.println("****消费者text的消息："+text);
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (message instanceof MapMessage){
+                try {
+                    MapMessage mapMessage = (MapMessage) message;
+                    System.out.println("****消费者Map的消息："+mapMessage.getString("name"));
+                    System.out.println("****消费者Map的消息："+mapMessage.getString("age"));
                 } catch (JMSException e) {
                     e.printStackTrace();
                 }
@@ -44,6 +53,9 @@ public class JmsConsumer_Topic2 implements Serializable {
         });
         System.in.read();
 
+        messageConsumer.close();
+        session.close();
+        connection.close();
 
     }
 
