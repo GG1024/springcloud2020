@@ -35,8 +35,11 @@ public class JmsConsumer_Topic implements Serializable {
         messageConsumer.setMessageListener(message -> {
             if (message instanceof TextMessage){
                 try {
-                    String text = ((TextMessage) message).getText();
-                    System.out.println("****消费者text的消息："+text);
+                    TextMessage textMessage = (TextMessage) message;
+                    System.out.println("****消费者text的消息："+textMessage.getText());
+                    System.out.println("消息属性："+textMessage.getStringProperty("From"));
+                    System.out.println("消息属性："+textMessage.getByteProperty("Spec"));
+                    System.out.println("消息属性："+textMessage.getBooleanProperty("Invalide"));
                 } catch (JMSException e) {
                     e.printStackTrace();
                 }
