@@ -3,6 +3,7 @@ package com.lucky.sz.queue;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -17,7 +18,7 @@ public class JmsConsumer implements Serializable {
     private static final String ACTIVEMQ_URL = "tcp://192.168.92.129:61616";
     private static final String QUEUE_NAME = "jdbc01";
     /** 阻塞式消费*/
-    public static void main(String[] args) throws JMSException {
+    public static void main(String[] args) throws JMSException, IOException {
         //1.创建连接工厂，按照给定的连接URL，默认的用户密码
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
 
@@ -44,6 +45,7 @@ public class JmsConsumer implements Serializable {
                 }
             }
         });
+        System.in.read();
         //9.关闭消费者资源
         messageConsumer.close();
         //10.关闭会话资源
