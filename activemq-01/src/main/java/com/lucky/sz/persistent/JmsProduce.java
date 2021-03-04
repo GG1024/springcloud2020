@@ -16,7 +16,7 @@ public class JmsProduce implements Serializable {
 
 
     private static final String ACTIVEMQ_URL = "tcp://192.168.92.129:61616";
-    private static final String QUEUE_NAME = "queue01";
+    private static final String QUEUE_NAME = "Topic-Persist";
 
     public static void main(String[] args) throws JMSException {
         //1.创建连接工厂，按照给定的连接URL，默认的用户密码
@@ -24,20 +24,26 @@ public class JmsProduce implements Serializable {
 
         //2.通过连接工厂，获取connection连接启动访问
         Connection connection = activeMQConnectionFactory.createConnection();
-        connection.start();
 
         //3.创建session会话
         //两个参数，transacted =事务，acknowledgeMode=确认，签收模式
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
         //4.创建目的地，确定是队列还是主题
         Queue queue = session.createQueue(QUEUE_NAME);
         // 5.创建消息的生产者
         MessageProducer messageProducer = session.createProducer(queue);
         messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
+        //设置持久化之后再启动连接
+        connection.start();
+
+
+
+
         //6.通过消息生产者，产生三条消息，发送到mq的队列里
         for (int i = 0; i <3 ; i++) {
             //7 创建message消息内容
-            TextMessage textMessage = session.createTextMessage("msg ---- messageListener");
+            TextMessage textMessage = session.createTextMessage("msg ---- persist");
             //8 通过messageProducer 发送消息到队列
             messageProducer.send(textMessage);
         }
