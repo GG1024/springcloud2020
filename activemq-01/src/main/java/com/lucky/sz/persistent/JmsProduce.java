@@ -30,15 +30,12 @@ public class JmsProduce implements Serializable {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
         //4.创建目的地，确定是队列还是主题
-        Queue queue = session.createQueue(QUEUE_NAME);
+        Topic topic = session.createTopic(QUEUE_NAME);
         // 5.创建消息的生产者
-        MessageProducer messageProducer = session.createProducer(queue);
+        MessageProducer messageProducer = session.createProducer(topic);
         messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
         //设置持久化之后再启动连接
         connection.start();
-
-
-
 
         //6.通过消息生产者，产生三条消息，发送到mq的队列里
         for (int i = 0; i <3 ; i++) {
