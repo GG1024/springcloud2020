@@ -44,6 +44,9 @@
         <module>rabbitmqboot-study</module>
         <module>miaosha</module>
         <module>activemq-01</module>
+        <module>activemq-spring</module>
+        <module>boot-mq-produver</module>
+        <module>boot-mq-consumer</module>
     </modules>
 
 
