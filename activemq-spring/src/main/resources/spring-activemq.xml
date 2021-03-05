@@ -8,12 +8,7 @@
     <context:component-scan base-package="com.lucky.sz"/>
     <!--  配置生产者  -->
     <bean id="connectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
-        <property name="connectionFactory">
-            <!--      正真可以生产Connection的ConnectionFactory,由对应的JMS服务商提供      -->
-            <bean class="org.apache.activemq.spring.ActiveMQConnectionFactory">
-                <property name="brokerURL" value="tcp://192.168.92.129:61616"/>
-            </bean>
-        </property>
+        <property name="connectionFactory" ref="activeMQConnectionFactory"/>
         <property name="maxConnections" value="100"/>
     </bean>
 
@@ -48,4 +43,22 @@
         <property name="destination" ref="destinationTopic"/>
         <property name="messageListener" ref="myMessageListener"/>
     </bean>
+
+
+    <!--定义重试机制-->
+    <bean name="activeMQRedeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
+        <property name="useExponentialBackOff" value="true"/>
+        <property name="maximumRedeliveries" value="3"/>
+        <property name="initialRedeliveryDelay" value="1000"/>
+        <property name="backOffMultiplier" value="2"/>
+        <property name="maximumRedeliveryDelay" value="1000"/>
+    </bean>
+
+    <!--配置连接工厂-->
+    <bean class="org.apache.activemq.ActiveMQConnectionFactory" name="activeMQConnectionFactory">
+        <property name="brokerURL" value="tcp://192.168.92.129:61616"/>
+        <property name="redeliveryPolicy" ref="activeMQRedeliveryPolicy"/>
+    </bean>
+
+
 </beans>
