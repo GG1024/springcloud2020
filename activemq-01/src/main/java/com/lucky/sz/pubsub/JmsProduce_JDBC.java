@@ -16,8 +16,7 @@ public class JmsProduce_JDBC implements Serializable {
 
 
     private static final String ACTIVEMQ_URL = "nio://192.168.92.129:61618";
-    private static final String TOPIC_NAME = "Topic-JdbcPersistence";
-
+    private static final String TOPIC_NAME = "Topic-Journal";
     public static void main(String[] args) throws JMSException {
         //1.创建连接工厂，按照给定的URL，采用默认的用户名密码
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
@@ -34,7 +33,7 @@ public class JmsProduce_JDBC implements Serializable {
         messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
         connection.start();
         //6.通过使用消息生产者,生产三条消息,发送到MQ的队列里面
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 100; i++) {
             //7.通过session创建消息
             TextMessage textMessage = session.createTextMessage("Topic-JdbcPersistence---" + i);
             messageProducer.send(textMessage);

@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class JmsConsumer_Topic_JDBC implements Serializable {
 
     private static final String ACTIVEMQ_URL = "nio://192.168.92.129:61618";
-    private static final String TOPIC_NAME = "Topic-JdbcPersistence";
+    private static final String TOPIC_NAME = "Topic-Journal";
 
     public static void main(String[] args) throws JMSException, IOException {
         //1.创建连接工厂，按照给定的URL，采用默认的用户名密码
