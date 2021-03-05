@@ -15,8 +15,8 @@ public class JmsProduce implements Serializable {
 
 
 
-    private static final String ACTIVEMQ_URL = "tcp://192.168.92.129:61616";
-    private static final String QUEUE_NAME = "jdbc01";
+    private static final String ACTIVEMQ_URL = "nio://192.168.92.129:61616";
+    private static final String QUEUE_NAME = "queue-nio";
 
 
     public static void main(String[] args) throws JMSException {
@@ -36,6 +36,7 @@ public class JmsProduce implements Serializable {
         Queue queue = session.createQueue(QUEUE_NAME);
         // 5.创建消息的生产者
         MessageProducer messageProducer = session.createProducer(queue);
+        //特性：持久化
         messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
         for (int i = 1; i < 4 ; i++) {
             TextMessage textMessage = session.createTextMessage("---MessageListener---" + i);

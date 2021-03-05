@@ -15,8 +15,8 @@ import java.io.Serializable;
 public class JmsConsumer implements Serializable {
 
 
-    private static final String ACTIVEMQ_URL = "tcp://192.168.92.129:61616";
-    private static final String QUEUE_NAME = "jdbc01";
+    private static final String ACTIVEMQ_URL = "tcp://192.168.92.129:61618";
+    private static final String QUEUE_NAME = "queue-nio";
     /** 阻塞式消费*/
     public static void main(String[] args) throws JMSException, IOException {
         //1.创建连接工厂，按照给定的连接URL，默认的用户密码
