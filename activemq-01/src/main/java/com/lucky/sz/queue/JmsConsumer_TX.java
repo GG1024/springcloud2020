@@ -1,6 +1,7 @@
 package com.lucky.sz.queue;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.RedeliveryPolicy;
 
 import javax.jms.*;
 import java.io.IOException;
@@ -21,6 +22,10 @@ public class JmsConsumer_TX implements Serializable {
     public static void main(String[] args) throws JMSException, IOException {
         //1.创建连接工厂，按照给定的连接URL，默认的用户密码
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
+        // 修改默认参数，设置消息消费重试3次
+        RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
+        redeliveryPolicy.setMaximumRedeliveries(3);
+        activeMQConnectionFactory.setRedeliveryPolicy(redeliveryPolicy);
 
         //2.通过连接工厂，获取connection连接启动访问
         Connection connection = activeMQConnectionFactory.createConnection();
