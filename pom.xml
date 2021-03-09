@@ -49,6 +49,7 @@
         <module>boot-mq-consumer</module>
         <module>boot-mq-topic-producer</module>
         <module>boot-mq-topic-consumer</module>
+        <module>zookeeper-01</module>
     </modules>
 
 

@@ -15,8 +15,8 @@ public class JmsProduce implements Serializable {
 
 
 
-    private static final String ACTIVEMQ_URL = "nio://192.168.92.129:61616";
-    private static final String QUEUE_NAME = "queue-nio";
+    private static final String ACTIVEMQ_URL = "failover:(tcp://192.168.92.129:61616,tcp://192.168.92.129:61617,tcp://192.168.92.129:61618)";
+    private static final String QUEUE_NAME = "queue-cluster";
 
 
     public static void main(String[] args) throws JMSException {
