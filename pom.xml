@@ -40,7 +40,16 @@
         <module>seata-order-service2001</module>
         <module>seata-storage-service2002</module>
         <module>seata-account-service2003</module>
-        <module>rabbitmq-java</module>
+        <module>rabbitmq-study</module>
+        <module>rabbitmqboot-study</module>
+        <module>miaosha</module>
+        <module>activemq-01</module>
+        <module>activemq-spring</module>
+        <module>boot-mq-produver</module>
+        <module>boot-mq-consumer</module>
+        <module>boot-mq-topic-producer</module>
+        <module>boot-mq-topic-consumer</module>
+        <module>zookeeper-01</module>
     </modules>
 
 
