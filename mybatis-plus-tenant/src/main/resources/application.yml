@@ -1,0 +1,28 @@
+system:
+  tenant:
+    enabled-tenant: true
+    not-tenant-tables: dict
+spring:
+  datasource:
+    username: root
+    password: msd123
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.10.126:5810/skywin-wms?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+server:
+  port: 9000
+mybatis-plus:
+  mapper-locations: classpath*:com/example/mybatisplustenantdemo/*/mapper/*.xml
+  global-config:
+    # 禁止打印banner
+    banner: false
+      #db-config:
+      # 逻辑删除配置
+      #logic-delete-value: 1
+    #logic-not-delete-value: 0
+    enable-sql-runner: true
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

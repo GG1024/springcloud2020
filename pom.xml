@@ -50,6 +50,9 @@
         <module>boot-mq-topic-producer</module>
         <module>boot-mq-topic-consumer</module>
         <module>zookeeper-01</module>
+        <module>rabbitmq-java</module>
+        <module>mybatis-plus-tenant</module>
+        <module>springboot-rabbitmq-order-producer</module>
     </modules>
 
 
